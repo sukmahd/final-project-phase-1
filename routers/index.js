@@ -3,7 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const model = require('../models');
-
+const encryptWithCrypto = require('../helpers/encrypt');
+const salting = require('../helpers/salting');
 
 router.get('/', function(req, res){
   res.send('hai')
@@ -15,16 +16,25 @@ router.get('/signup', function(req,res){
 })
 
 router.post('/signup', function(req, res){
-  model.User.create({
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    role: 'member'
-  })
-  .then(function(){
-    res.redirect('login')
+  model.User.findOne( { where: {username: req.body.username} } )
+  .then(result => {
+    if (!result) {
+      let salty = salting();
+      model.User.create({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        username: req.body.username,
+        password: encryptWithCrypto(req.body.password, salty),
+        salt: salty,
+        email: req.body.email,
+        role: 'member'
+      })
+      .then(function(){
+        res.redirect('login')
+      })
+    } else {
+      res.send("Username Already Taken! ")
+    }
   })
 })
 
@@ -46,7 +56,7 @@ router.post('/login', function(req,res){
       }
     })
     .then(function(row){
-      if(row.password == req.body.password)
+      if(encryptWithCrypto(req.body.password, row.salt) == row.password)
       {
         req.session.user = {
           username: row.username,

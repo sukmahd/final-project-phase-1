@@ -6,6 +6,7 @@ const model = require('./models');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const Group = require('./routers/group');
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,5 +20,6 @@ app.get('/', function(req,res){
   res.send('hai')
 })
 
+app.use('/group', Group)
 
 app.listen(3002);

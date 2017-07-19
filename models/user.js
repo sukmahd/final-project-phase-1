@@ -8,12 +8,12 @@ module.exports = function(sequelize, DataTypes) {
     email: DataTypes.STRING,
     salt: DataTypes.STRING,
     role: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+
+  User.associate = models => {
+    User.hasMany(models.Group);
+    User.belongsToMany(models.Group, {through: 'Post'})
+  }
+
   return User;
 };

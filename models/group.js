@@ -5,7 +5,10 @@ module.exports = function(sequelize, DataTypes) {
     UserId: DataTypes.INTEGER
   });
 
-  
+  Group.associate = models => {
+    Group.belongsTo(models.User);
+    Group.belongsToMany(models.User, {through: 'Post'});
+  }
 
   return Group;
 };

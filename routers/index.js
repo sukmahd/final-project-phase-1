@@ -16,8 +16,11 @@ router.get('/signup', function(req,res){
 
 router.post('/signup', function(req, res){
   model.User.create({
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
     username: req.body.username,
     password: req.body.password,
+    email: req.body.email,
     role: 'member'
   })
   .then(function(){
@@ -45,6 +48,10 @@ router.post('/login', function(req,res){
     .then(function(row){
       if(row.password == req.body.password)
       {
+        req.session.user = {
+          username: row.username,
+          role: row.role
+        }
         res.redirect('/menu')
       }
       else

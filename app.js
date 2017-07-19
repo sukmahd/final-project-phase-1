@@ -20,10 +20,11 @@ app.set('view engine', 'ejs');
 app.use(session({
   secret: 'hacktiv',
   resave: false,
-  saveUnitialized: true,
+  saveUninitialized: true,
   cookie: {}
 }))
 
+app.use('/group', Group)
 
 app.use('/', index)
 
@@ -41,7 +42,6 @@ app.get('/test', function(req, res){
   res.send('ini login')
 })
 
-app.use('/group', Group)
 
 
 app.listen(3002);

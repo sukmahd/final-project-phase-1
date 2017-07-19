@@ -32,9 +32,9 @@ router.post('/create', function(req, res) {
   })
 });
 
-router.get('/group/:id', function(req, res) {
-  res.render('')
-});
+// router.get('/group/:id', function(req, res) {
+//   res.render('')
+// });
 
 // router.get('/group/:id/delete', function(req, res) {
 //   model.Post.findAll( {include: [ {all:true} ]} )

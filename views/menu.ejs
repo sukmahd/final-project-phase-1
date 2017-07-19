@@ -12,7 +12,7 @@
     <a href='/menu/edit' class="waves-effect waves-light btn">Profile</a>
     <% datas.forEach(data => { %>
     <div class="collection">
-    <a href="/group/<%= data.id %>" class="collection-item"><span class="badge">Created By <%= data.User.username %></span><%= data.group_name %></a>
+    <a href="/post/<%= data.id %>" class="collection-item"><span class="badge">Created By <%= data.User.username %></span><%= data.group_name %></a>
     </div>
     <% }) %>
 

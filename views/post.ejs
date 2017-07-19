@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <%- include layouts/header%>
+  </head>
+  <body>
+    <form action="/post/<%=id%>/<%=idg%>" method="POST" class="col s6 offset-s4">
+      <div class="row">
+        <div class="input-field col s6 ">
+          <ul class="collection">
+          <% data.forEach(dat => { %>
+
+            <span class="badge">Created By <%= dat.User.username %></span>
+            <li class="collection-item"><%= dat.post %></li>
+
+          <% }) %>
+          </ul>
+          <input placeholder="Write Here..." type="text" name="post" class="validate">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Post</button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

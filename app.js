@@ -10,6 +10,7 @@ const Group = require('./routers/group');
 
 const index = require('./routers/index');
 const menu = require('./routers/menu');
+const post = require('./routers/post');
 
 
 
@@ -37,10 +38,12 @@ app.use((req,res, next)=>{
 })
 
 app.use('/menu', menu);
+app.use('/post', post);
 
 app.get('/test', function(req, res){
   res.send('ini login')
 })
+
 
 
 app.use('/group', Group)

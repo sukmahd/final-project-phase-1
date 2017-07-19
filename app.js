@@ -42,6 +42,7 @@ app.get('/test', function(req, res){
   res.send('ini login')
 })
 
+app.use('/group', Group)
 
 app.use('/group', Group)
 

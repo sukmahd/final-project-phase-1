@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 
 const index = require('./routers/index');
+const menu = require('./routers/menu');
 
 
 
@@ -34,7 +35,7 @@ app.use((req,res, next)=>{
   }
 })
 
-
+app.use('/menu', menu);
 
 app.get('/test', function(req, res){
   res.send('ini login')

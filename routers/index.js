@@ -50,7 +50,8 @@ router.post('/login', function(req,res){
       {
         req.session.user = {
           username: row.username,
-          role: row.role
+          role: row.role,
+          id: row.id
         }
         res.redirect('/menu')
       }

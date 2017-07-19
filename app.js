@@ -6,6 +6,7 @@ const model = require('./models');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const Group = require('./routers/group');
 
 const index = require('./routers/index');
 const menu = require('./routers/menu');
@@ -41,6 +42,8 @@ app.get('/test', function(req, res){
   res.send('ini login')
 })
 
+
+app.use('/group', Group)
 
 
 app.listen(3002);

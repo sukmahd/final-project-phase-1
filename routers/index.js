@@ -15,16 +15,23 @@ router.get('/signup', function(req,res){
 })
 
 router.post('/signup', function(req, res){
-  model.User.create({
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    role: 'member'
-  })
-  .then(function(){
-    res.redirect('login')
+  model.User.findOne( { where: {username: req.body.username} } )
+  .then(result => {
+    if (!result) {
+      model.User.create({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        role: 'member'
+      })
+      .then(function(){
+        res.redirect('login')
+      })
+    } else {
+      res.send("Username Already Taken! ")
+    }
   })
 })
 

@@ -7,6 +7,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
+const index = require('./routers/index');
+
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -15,9 +18,7 @@ app.set('view engine', 'ejs');
 
 
 
-app.get('/', function(req,res){
-  res.send('hai')
-})
+app.use('/', index)
 
 
 app.listen(3002);

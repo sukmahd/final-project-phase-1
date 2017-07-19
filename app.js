@@ -25,7 +25,6 @@ app.use(session({
   cookie: {}
 }))
 
-app.use('/group', Group)
 
 app.use('/', index)
 

@@ -28,7 +28,7 @@ router.post('/create', function(req, res) {
     UserId: req.session.user.id
   })
   .then(result => {
-    res.redirect('/group')
+    res.redirect('/menu')
   })
 });
 

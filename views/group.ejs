@@ -10,6 +10,7 @@
       <% datas.forEach(data => { %>
       <div class="collection">
       <a href="/group/<%= data.id %>" class="collection-item"><span class="badge">Created By <%= data.User.username %></span><%= data.group_name %></a>
+      </div>
       <% }) %>
     </div>
   </body>

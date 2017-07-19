@@ -6,7 +6,10 @@ const model = require('../models');
 
 
 router.get('/', function(req,res){
-  res.render('menu', {title: 'menu', username: req.session.user.username})
+  model.Group.findAll({ include: [ model.User ] })
+  .then(result => {
+    res.render('menu', {datas: result, title: "Menu", username: req.session.user.username});
+  })
 })
 
 

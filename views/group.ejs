@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+  </head>
+  <body>
+    <% datas.forEach(data => { %>
+    <div class="collection">
+    <a href="#!" class="collection-item"><span class="badge">1</span><%= data.group_name %></a>
+    <a href="#!" class="collection-item"><span class="new badge">4</span>Created By <%= data.UserId %></a>
+    </div>
+      <td><%= data.group_name %></td>
+      <td>Created By <%= data.UserId %></td>
+    </tr>
+    <% }) %>
+  </body>
+</html>

@@ -22,7 +22,7 @@ router.get('/:idg', function(req,res){
     })
     .then(function(grup){
       let contri = list(rows);
-      res.render('post', {title: 'Post', id: req.session.user.id, data: rows, idg: req.params.idg, contr: contri, grupName: grup.group_name})
+      res.render('post', {title: 'Post',username: req.session.user.username, id: req.session.user.id, data: rows, idg: req.params.idg, contr: contri, grupName: grup.group_name})
     })
   })
 })
@@ -33,8 +33,13 @@ router.post('/:id/:idg', function(req,res){
     GroupId: req.params.idg,
     post: req.body.post
   })
-  .then(function(){
-    res.redirect(`/post/${req.params.idg}`)
+  .then(function(rows){
+    // res.redirect(`/post/${req.params.idg}`)
+    model.User.findById(rows.UserId)
+    .then(user => {
+      res.send(user.username)
+    })
+    // res.send();
   })
 })
 

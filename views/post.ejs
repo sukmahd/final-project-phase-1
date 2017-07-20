@@ -68,7 +68,7 @@
 
         $messageForm.submit(function(e) {
           e.preventDefault();
-
+          socket.emit('post message', $message.val());
           $.ajax({
             type: 'POST',
             data: {post: $message.val()},

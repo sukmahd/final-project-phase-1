@@ -8,6 +8,7 @@ const list = require('../helpers/listContri')
 
 router.get('/:idg', function(req,res){
   model.Post.findAll({
+    attributes: ['id', 'GroupId', 'UserId', 'post'],
     where: {
       GroupId: req.params.idg
     },
@@ -44,7 +45,7 @@ router.get('/delete/:id/:idg', function(req,res){
     }
   })
   .then(function(){
-    res.render(`/post/${req.params.idg}`)
+    res.redirect(`/post/${req.params.idg}`)
   })
 })
 

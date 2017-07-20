@@ -5,17 +5,33 @@
     <%- include layouts/header%>
   </head>
   <body>
-
   <div class="container">
     <h5>Welcome, <%= username %></h5>
     <a href='/logout' class="waves-effect waves-light btn">Logout</a>
     <a href='/menu/edit' class="waves-effect waves-light btn">Profile</a>
-    <% datas.forEach(data => { %>
-    <div class="collection">
-    <a href="/post/<%= data.id %>" class="collection-item"><span class="badge">Created By <%= data.User.username %></span><%= data.group_name %></a>
-    </div>
-    <% }) %>
+    <div class="col s6">
 
+
+    <% datas.forEach(data => { %>
+      <div class="row">
+      <div class="col s8">
+        <div class="collection">
+        <a href="/post/<%= data.id %>" class="collection-item">
+          <span class="badge">
+            Created By <%= data.User.username %>
+          </span>
+          <%= data.group_name %>
+        </a>
+        </div>
+      </div>
+      <div class="col s1">
+        <%if(username == data.User.username){%>
+          <a class='collection-item' href="group/delete/<%=data.id%>">X</a>
+        <%}%>
+      </div>
+  </div>
+    <% }) %>
+</div>
   <form action="/group/create" method="POST" class="col s6 offset-s4">
     <div class="row">
       <div class="input-field col s6 ">

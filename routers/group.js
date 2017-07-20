@@ -32,6 +32,17 @@ router.post('/create', function(req, res) {
   })
 });
 
+router.get('/delete/:id', function(req,res){
+  model.Group.destroy({
+    where:{
+      id:req.params.id
+    }
+  })
+  .then(function(){
+    res.redirect('/menu')
+  })
+})
+
 // router.get('/group/:id', function(req, res) {
 //   res.render('')
 // });

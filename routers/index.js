@@ -6,7 +6,7 @@ const model = require('../models');
 
 
 router.get('/', function(req, res){
-  res.send('hai')
+  res.render('index', {title: 'Home'})
 })
 
 

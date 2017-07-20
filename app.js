@@ -12,7 +12,17 @@ const index = require('./routers/index');
 const menu = require('./routers/menu');
 const post = require('./routers/post');
 
+const server = require('http').Server(app);
 
+const io = require('socket.io')(server);
+
+io.on('connection', function(socket){
+  console.log('a user connected', socket.handshake.headers['user-agent']);
+  socket.on('post message', function(msg, org){
+    console.log('message: ' + msg + ' ---- ' + JSON.stringify(org));
+    io.sockets.emit('new message', { msg: msg, username:org })
+  });
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -49,4 +59,4 @@ app.get('/test', function(req, res){
 app.use('/group', Group)
 
 
-app.listen(process.env.PORT || 8000);
+server.listen(process.env.PORT || 3002);

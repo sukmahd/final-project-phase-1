@@ -49,4 +49,4 @@ app.get('/test', function(req, res){
 app.use('/group', Group)
 
 
-app.listen(3002);
+app.listen(process.env.PORT || 8000);

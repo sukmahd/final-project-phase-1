@@ -6,21 +6,21 @@ const model = require('./models');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const Group = require('./routers/group');
 
 const index = require('./routers/index');
 const menu = require('./routers/menu');
 const post = require('./routers/post');
+const Group = require('./routers/group');
+const Friend = require('./routers/friend');
 
+// Socket IO
 const server = require('http').Server(app);
-
 const io = require('socket.io')(server);
 
 io.on('connection', function(socket){
   console.log('a user connected', socket.handshake.headers['user-agent']);
-  socket.on('post message', function(msg){
-    console.log('message: ' + msg);
-    io.sockets.emit('new message', { msg: msg })
+  socket.on('post message', function(msg, org){
+    io.sockets.emit('new message', { msg: msg, username:org })
   });
 });
 
@@ -49,6 +49,7 @@ app.use((req,res, next)=>{
 
 app.use('/menu', menu);
 app.use('/post', post);
+app.use('/friend', Friend)
 
 app.get('/test', function(req, res){
   res.send('ini login')

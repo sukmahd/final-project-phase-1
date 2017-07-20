@@ -3,8 +3,43 @@
   <head>
     <meta charset="utf-8">
     <title>Friend List</title>
+    <%- include layouts/header%>
+    <style>
+      .margin-plus{
+        margin: 5px;
+        background-color: red;
+      }
+
+      .margin-minus{
+        margin-bottom: -25px;
+      }
+    </style>
   </head>
   <body>
-    
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h4><%= title%></h4>
+        </div>
+
+        <div class="col s8">
+        <% datas.forEach(data => { %>
+          <div class="row">
+            <div class="col s8 margin-minus">
+              <div class="collection">
+                <a href="/friend/<%= data.id %>" class="collection-item">
+                  <span class="badge">
+                    <%= data.first_name %> <%= data.last_name %>
+                  </span>
+                  <%= data.username %>
+                </a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+        </div>
+
+      </div>
+    </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
     <meta http-equiv="refresh" content="5" />
   </head>
   <body>
-    <%JSON.stringify(data)%>
+
     <form action="/post/<%=id%>/<%=idg%>" method="POST" class="col s6 offset-s4">
       <div class="container">
         <div class="row">
@@ -16,7 +16,10 @@
           <div class="input-field col s7 ">
             <ul class="collection">
             <% data.forEach(dat => { %>
-              <span class="badge"><a href="/post/delete/<%=dat.id%>/<%=dat.GroupId%>">x</a></span>
+              <%if(id == dat.UserId){%>
+                  <span class="badge"><a href="/post/delete/<%=dat.id%>/<%=dat.GroupId%>">x</a></span>
+              <%}%>
+
               <!-- <span class="badge">Created By <%= dat.User.username %></span> -->
 
               <li class="collection-item"><%= dat.post %></li>

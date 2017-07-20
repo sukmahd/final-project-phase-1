@@ -18,9 +18,9 @@ const io = require('socket.io')(server);
 
 io.on('connection', function(socket){
   console.log('a user connected', socket.handshake.headers['user-agent']);
-  socket.on('post message', function(msg){
-    console.log('message: ' + msg);
-    io.sockets.emit('new message', { msg: msg })
+  socket.on('post message', function(msg, org){
+    console.log('message: ' + msg + ' ---- ' + JSON.stringify(org));
+    io.sockets.emit('new message', { msg: msg, username:org })
   });
 });
 

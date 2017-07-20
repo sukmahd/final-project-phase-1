@@ -26,7 +26,7 @@
           <div class="input-field col s7 ">
             <ul class="collection">
             <% data.forEach(dat => { %>
-
+              
               <%if(id == dat.UserId){%>
                   <span class="badge"><a href="/post/delete/<%=dat.id%>/<%=dat.GroupId%>">x</a></span>
               <%}%>

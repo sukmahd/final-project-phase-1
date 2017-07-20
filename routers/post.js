@@ -8,10 +8,11 @@ const list = require('../helpers/listContri')
 
 router.get('/:idg', function(req,res){
   model.Post.findAll({
-    attributes: ['id', 'GroupId', 'UserId', 'post'],
+    attributes: ['id', 'GroupId', 'UserId', 'post', 'createdAt'],
     where: {
       GroupId: req.params.idg
     },
+    order: [['createdAt']],
     include:[{all:true}]
   })
   .then(function(rows){

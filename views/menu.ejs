@@ -99,6 +99,10 @@
       socket.on('connected', function(data) {
         $konnekted.html(`<i class="material-icons">face</i> ${data.connected} Users Connected`);
       })
+
+      socket.on('disconnected', function(data) {
+        $konnekted.html(`<i class="material-icons">face</i> ${data.connected} Users Connected`);
+      })
     })
   </script>
 </html>

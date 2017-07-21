@@ -34,6 +34,7 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(data) {
     connections.splice(connections.indexOf(socket), 1)
     console.log(`A user disconnected: ${connections.length} sockets connected`);
+    io.sockets.emit('connected', { connected: connections.length })
   })
 });
 

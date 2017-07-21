@@ -36,10 +36,10 @@ router.post('/:id/:idg', function(req,res){
   })
   .then(function(rows){
     // res.redirect(`/post/${req.params.idg}`)
-    model.User.findById(rows.UserId)
-    .then(user => {
-      res.send(user.username)
-    })
+    // model.User.findById(rows.UserId)
+    // .then(user => {
+    //   res.send(user.username)
+    // })
     // res.send();
   })
 })

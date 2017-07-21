@@ -4,7 +4,7 @@ const model = require('../models');
 
 
 router.get('/', function(req, res) {
-  model.Group.findAll({ include: [ model.User ] })
+  model.Group.findAll({ include: [ model.User ], order: [['createdAt']] })
   .then(result => {
     res.render('group', {datas: result, title: "All Group"});
   })
@@ -28,6 +28,7 @@ router.post('/create', function(req, res) {
     UserId: req.session.user.id
   })
   .then(result => {
+    res.send(result.id)
     res.redirect('/menu')
   })
 });

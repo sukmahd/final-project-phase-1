@@ -17,10 +17,13 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 io.on('connection', function(socket){
-  console.log('a user connected', socket.handshake.headers['user-agent']);
+  // console.log('a user connected', socket.handshake.headers['user-agent']);
   socket.on('post message', function(msg, org){
-    console.log('message: ' + msg + ' ---- ' + JSON.stringify(org));
     io.sockets.emit('new message', { msg: msg, username:org })
+  });
+
+  socket.on('create group', function(groupName, groupId, userName){
+    io.sockets.emit('new group', { groupName: groupName, groupId: groupId, userName: userName })
   });
 });
 

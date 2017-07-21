@@ -6,15 +6,16 @@
     <style>
     .margin-minus{
       margin-bottom: -25px;
-
     }
     </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
   <div class="container">
     <h5>Welcome, <%= username %></h5>
-    <a href='/logout' class="waves-effect waves-light btn">Logout</a>
-    <a href='/menu/edit' class="waves-effect waves-light btn">Profile</a>
+    <a href='/logout' class="waves-effect waves-light btn"><i class="large material-icons">settings_power</i>Logout</a>
+    <a href='/menu/edit' class="waves-effect waves-light btn"><i class="large material-icons">account_box</i>Profile</a>
+    <span class="right-align" id="connected"></span>
     <div class="col s6">
 
     <% datas.forEach(data => { %>
@@ -69,6 +70,7 @@
       var $newGroup = $('#newGroup');
       var $groupId = $('#group_id');
       var $userName = $('#username');
+      var $konnekted = $('#connected')
 
       $groupForm.submit(function(e) {
         e.preventDefault();
@@ -92,6 +94,10 @@
 
       socket.on('new group', function(data) {
         $newGroup.append('<a href="/post/' + data.groupId + '" class="collection-item"> <span class="badge"> Created By ' + data.userName + ' </span> ' + data.groupName + ' </a>')
+      })
+
+      socket.on('connected', function(data) {
+        $konnekted.html(`<i class="material-icons">face</i> ${data.connected} Users Connected`);
       })
     })
   </script>

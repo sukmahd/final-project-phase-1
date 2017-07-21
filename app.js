@@ -6,18 +6,23 @@ const model = require('./models');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+
+const Index = require('./routers/index');
+const Menu = require('./routers/menu');
+const Post = require('./routers/post');
 const Group = require('./routers/group');
 
-const index = require('./routers/index');
-const menu = require('./routers/menu');
-const post = require('./routers/post');
-
 const server = require('http').Server(app);
-
 const io = require('socket.io')(server);
+var connections = [];
 
 io.on('connection', function(socket){
   // console.log('a user connected', socket.handshake.headers['user-agent']);
+
+  connections.push(socket);
+  console.log(`Connected: ${connections.length} sockets connected`);
+  io.sockets.emit('connected', { connected: connections.length })
+
   socket.on('post message', function(msg, org){
     io.sockets.emit('new message', { msg: msg, username:org })
   });
@@ -25,6 +30,11 @@ io.on('connection', function(socket){
   socket.on('create group', function(groupName, groupId, userName){
     io.sockets.emit('new group', { groupName: groupName, groupId: groupId, userName: userName })
   });
+
+  socket.on('disconnect', function(data) {
+    connections.splice(connections.indexOf(socket), 1)
+    console.log(`A user disconnected: ${connections.length} sockets connected`);
+  })
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -40,7 +50,7 @@ app.use(session({
 }))
 
 
-app.use('/', index)
+app.use('/', Index)
 
 app.use((req,res, next)=>{
   if(req.session.user){
@@ -50,16 +60,13 @@ app.use((req,res, next)=>{
   }
 })
 
-app.use('/menu', menu);
-app.use('/post', post);
+app.use('/menu', Menu);
+app.use('/post', Post);
+app.use('/group', Group)
 
 app.get('/test', function(req, res){
-  res.send('ini login')
+  res.send('ini test')
 })
-
-
-
-app.use('/group', Group)
 
 
 server.listen(process.env.PORT || 3000);

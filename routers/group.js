@@ -28,8 +28,8 @@ router.post('/create', function(req, res) {
     UserId: req.session.user.id
   })
   .then(result => {
-    res.send(result.id)
-    res.redirect('/menu')
+    res.send(result)
+    //res.redirect('/menu')
   })
 });
 

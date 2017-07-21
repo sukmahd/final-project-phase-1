@@ -36,8 +36,16 @@
         </div>
       </div>
     <% }) %>
-    <div class="col s8 margin-minus collection" id="newGroup"></div>
-  <form id="groupForm" action="/group/create" method="POST" class="col s6 offset-s4">
+    <div class="row">
+      <div class="col s8 margin-minus">
+        <div class="collection" id="newGroup"></div>
+      </div>
+      <div class="col s1 margin-minus">
+
+      </div>
+    </div>
+
+  <form id="groupForm" action="#" method="POST" class="col s6 offset-s4">
     <div class="row">
       <div class="input-field col s6 ">
         <input placeholder="Group Name" type="text" name="group_name" id="group_name" class="validate">
@@ -62,16 +70,19 @@
       var $groupId = $('#group_id');
       var $userName = $('#username');
 
-      $HEHEHEHEHEHEgroupForm.submit(function(e) {
-        //e.preventDefault();
-        socket.emit('create group', $groupName.val(), $groupId.val(), $userName.val());
-        
+      $groupForm.submit(function(e) {
+        e.preventDefault();
+        $groupNameForResp = $groupName.val();
+
         $.ajax({
           type: 'POST',
           data: {group_name: $groupName.val()},
           url: '/group/create',
           success: function(resp) {
-            // alert(resp)
+            console.log(resp.id);
+            console.log($groupNameForResp);
+             console.log($userName.val());
+             socket.emit('create group', $groupNameForResp, resp.id, $userName.val());
           },
           error: function() {
           }
@@ -80,7 +91,7 @@
       });
 
       socket.on('new group', function(data) {
-        //$newGroup.append('<a href="/post/' + data.groupId + '" class="collection-item"> <span class="badge"> Created By ' + data.userName + ' </span> ' + data.groupName + ' </a>')
+        $newGroup.append('<a href="/post/' + data.groupId + '" class="collection-item"> <span class="badge"> Created By ' + data.userName + ' </span> ' + data.groupName + ' </a>')
       })
     })
   </script>

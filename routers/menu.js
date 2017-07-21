@@ -6,9 +6,9 @@ const model = require('../models');
 
 
 router.get('/', function(req,res){
-  model.Group.findAll({ include: [ model.User ] })
+  model.Group.findAll({ include: [ model.User ], order: [['createdAt']] })
   .then(result => {
-    res.render('menu', {datas: result, title: "Menu", username: req.session.user.username});
+    res.render('menu', {datas: result, title: "Menu", username: req.session.user.username, group_id: ""});
   })
 })
 
